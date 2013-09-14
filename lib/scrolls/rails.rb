@@ -29,6 +29,14 @@ module Scrolls
       end
     end
 
+    def custom_fields=(fields)
+      @custom_fields = fields
+    end
+
+    def custom_fields
+      @custom_fields || []
+    end
+
   # private
 
     def unsubscribe(component, subscriber)
