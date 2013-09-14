@@ -31,6 +31,7 @@ module Scrolls
         data[:status] = extract_status(event.payload)
         data.merge! runtimes(event)
         data.merge! location(event)
+        data.merge! custom_fields(event)
       end
 
       def extract_request(payload)
@@ -51,6 +52,7 @@ module Scrolls
         end
       end
 
+
       def runtimes(event)
         { :duration => event.duration,
           :view => event.payload[:view_runtime],
@@ -68,6 +70,10 @@ module Scrolls
         else
           {}
         end
+      end
+
+      def custom_fields(event)
+        event.payload.slice(*Scrolls::Rails.custom_fields)
       end
     end
   end
