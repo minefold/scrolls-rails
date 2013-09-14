@@ -6,11 +6,6 @@ module Scrolls
   module Rails
     class LogSubscriber < ActiveSupport::LogSubscriber
 
-      FIELDS = [
-        :method, :path, :format, :controller, :action, :status, :error,
-        :duration, :view, :db, :location
-      ]
-
       def process_action(event)
         exception = event.payload[:exception]
         if exception
