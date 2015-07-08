@@ -15,6 +15,9 @@ module Scrolls
         exception = event.payload[:exception]
 
         if exception.present?
+          # In Rails 3.2.9 event.payload[:exception] was changed from an
+          # Exception object to an Array containing the e.class.name and
+          # e.message. Adding handling for this case here.
           if exception.is_a?(Array)
             exception_class_name, exception_message = exception
             exception = exception_class_name.constantize.new(exception_message)
