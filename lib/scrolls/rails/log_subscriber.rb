@@ -13,7 +13,13 @@ module Scrolls
 
       def process_action(event)
         exception = event.payload[:exception]
-        if exception
+
+        if exception.present?
+          if exception.is_a?(Array)
+            exception_class_name, exception_message = exception
+            exception = exception_class_name.constantize.new(exception_message)
+          end
+
           Scrolls.log_exception({status: 500}, exception)
         else
           Scrolls.log(extract_request_data_from_event(event))
